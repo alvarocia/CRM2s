@@ -12,12 +12,12 @@ run_simulation_potential(
   theta_0 = 2.7,
   theta = 3,
   N = 24,
-  n_initial = 3,
+  n_initial = 1,
   q_0 = 0.05,
   q_2 = 0.5,
   q_1 = 0.9,
   p_tox_init_3_3 = 0.02,
-  delta_dosis_3_3 = 0.05,
+  delta_dosis_3_3 = 0.055,
   fixed_optimal_dose = 0.2032
 )
 }
@@ -36,7 +36,7 @@ run_simulation_potential(
 
 \item{N}{Total number of patients in the CRM design. Default is 24.}
 
-\item{n_initial}{Number of patients per dose level in both designs. Default is 3.}
+\item{n_initial}{Number of patients per dose level in the CRM design (not used in 3+3). Default is 1.}
 
 \item{q_0}{Initial toxicity probability for CRM design. Default is 0.05.}
 
@@ -46,7 +46,7 @@ run_simulation_potential(
 
 \item{p_tox_init_3_3}{Initial toxicity probability for the 3+3 model. Default is 0.02.}
 
-\item{delta_dosis_3_3}{Step size for dose escalation in the 3+3 model. Default is 0.05.}
+\item{delta_dosis_3_3}{Step size for dose escalation in the 3+3 model. Default is 0.055.}
 
 \item{fixed_optimal_dose}{Reference dose for optimal CRM design. Default is 0.2032.}
 }
@@ -54,6 +54,8 @@ run_simulation_potential(
 A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
 \describe{
   \item{method}{Design used ("3+3" or "2stage")}
+  \item{mean_pat}{Mean of patients}
+  \item{median_pat}{Median of patients}
   \item{mean_mtd}{Mean of the estimated MTDs}
   \item{var_mtd}{Variance of the estimated MTDs}
   \item{median_mtd}{Median of the estimated MTDs}
@@ -68,8 +70,13 @@ A \code{data.frame} with one row per method ("3+3" and "2stage") and the followi
   \item{q1_tox}{First quartile (Q1) of the number of toxicities}
   \item{q3_tox}{Third quartile (Q3) of the number of toxicities}
   \item{max_tox}{Maximum number of toxicities}
+  \item{iqr_tox}{Interquartile range of the number of toxicities}
 }
 }
 \description{
 Compares the MTD estimation and toxicity count between the potential 3+3 method and the two-stage CRM using multiple replications.
+}
+\examples{
+df <- run_simulation_potential(num_rep = 100)
+head(df)
 }

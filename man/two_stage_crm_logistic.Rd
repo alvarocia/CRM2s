@@ -23,7 +23,7 @@ two_stage_crm_logistic(
 
 \item{theta}{True value for the vector of parameters for the dose-toxicity curve. Default is c(-3,2).}
 
-\item{theta_0}{Nominal value of the vector of parameters. Default is 2.7.}
+\item{theta_0}{Nominal value of the vector of parameters. Default is c(-3.1, 1.8).}
 
 \item{N}{Total number of patients (including both stages). Default is 24.}
 
@@ -44,7 +44,7 @@ A list with:
 \describe{
   \item{n_toxicities}{Total number of toxicities observed.}
   \item{mtd_estimated}{Estimated Maximum Tolerated Dose (MTD). If no toxicity is observed in the first stage, the MTD is set to the largest dose level used.}
-  \item{mle_theta}{Estimated value of the dose-toxicity parameter \eqn{\theta}. Set to \code{NA} if no toxicity is detected in stage 1.}
+  \item{mle_theta}{Vector of estimated parameters \eqn{\theta = (\alpha, \beta)} for the logistic dose-toxicity model. Set to \code{NA} if no toxicity is detected in stage 1.}
   \item{x}{Vector of dose levels administered.}
   \item{y}{Vector of toxicity outcomes (1 = toxic, 0 = non-toxic).}
 }
@@ -53,7 +53,7 @@ A list with:
 Performs one simulation run of a two-stage CRM design for estimating the Maximum Tolerated Dose (MTD) in phase I trials.
 }
 \note{
-If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated..
+If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated.
 A warning is issued, and the MTD is conservatively estimated as the highest dose level reached.
 The value of \code{mle_theta} is set to \code{NA} in this case.
 }

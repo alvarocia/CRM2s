@@ -1,20 +1,22 @@
 #' @title 3+3 Design Simulation for Logistic model with 2 parameters
-#' @description Simulates one trial using a 3+3 dose-escalation method for estimating the Maximum Tolerated Dose (MTD).
+#' @description Simulates a single trial using a 3+3 dose-escalation method for estimating the Maximum Tolerated Dose (MTD).
 #'
 #' @param theta True value of the vector of parameters for the dose-toxicity curve. Default is c(-3,2).
 #' @param theta_0 Nominal value for the vector of parameters. Default is c(-3.1,1.8).
 #' @param n_initial Number of patients per dose level. Default is 3.
-#' @param p_tox_init Initial toxicity probability for computing starting dose. Default is 0.02.
+#' @param p_tox_init Initial toxicity probability for computing starting dose. Default is 0.05.
 #' @param delta_dosis Step size for dose escalation. Default is 0.05.
 #' @param seed Random seed for reproducibility. Default is 1234.
 #' @param show_plot Logical. If TRUE, plot dose level vs. patient index. Default is FALSE.
 #'
 #' @return A list with:
-#'   \item{n_toxicities}{Total number of toxicities observed}
-#'   \item{mtd_estimated}{Estimated MTD (last safe dose)}
-#'   \item{n_patients}{Total number of patients enrolled}
-#'   \item{x}{Dose levels assigned}
-#'   \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic)}
+#' \describe{
+#'   \item{n_toxicities}{Total number of toxicities observed.}
+#'   \item{mtd_estimated}{Estimated MTD (last safe dose).}
+#'   \item{n_patients}{Total number of patients enrolled.}
+#'   \item{x}{Dose levels assigned.}
+#'   \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic).}
+#' }
 #'
 #' @examples
 #' res <- logistic_3_3()
@@ -22,11 +24,11 @@
 #'
 #' @export
 logistic_3_3 <- function(
-  theta_0 = c(-3,2),
-  theta = c(-3.1,1.8),
+  theta = c(-3,2),
+  theta_0 = c(-3.1,1.8),
   n_initial = 3,
   p_tox_init = 0.05,
-  delta_dosis = 0.1,
+  delta_dosis = 0.092,
   seed = 1234,
   show_plot = FALSE
 ) {
@@ -36,6 +38,7 @@ logistic_3_3 <- function(
   x0 <- (log(p_tox_init/(1-p_tox_init))-theta_0[1])/theta_0[2]
 
   d_initial <- c()
+  new_dose <- NULL
   for (k in 0:floor((1-x0)/delta_dosis + 5)) {
     new_dose <- x0 + k * delta_dosis
     d_initial <- c(d_initial, new_dose)
@@ -78,7 +81,7 @@ logistic_3_3 <- function(
          pch = ifelse(y == 1, 4, 1),
          xlab = "Patient number",
          ylab = "Dose level",
-         main = "3+3 Design",
+         main = "",
          ylim = c(min(x) * 0.9, max(x) * 1.1))
 
     legend("bottomright",

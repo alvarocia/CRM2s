@@ -2,23 +2,23 @@
 % Please edit documentation in R/run_simulation_logistic.R
 \name{run_simulation_logistic}
 \alias{run_simulation_logistic}
-\title{Run Simulation Comparison Between 3+3 and Two-Stage CRM for the logistic model with two parameters}
+\title{Simulation Comparison of 3+3 and Two-Stage CRM Designs for a Logistic Model with Two Parameters}
 \usage{
 run_simulation_logistic(
-  num_rep = 100,
+  num_rep = 1000,
   seed = 1234,
   save_plot = FALSE,
   p0 = 0.4,
   theta = c(-3, 2),
   theta_0 = c(-3.1, 1.8),
   N = 24,
-  n_initial = 3,
+  n_initial = 1,
   q_0 = 0.05,
   q_2 = 0.4,
   q_1 = 0.9,
   lim_sup_prob = 0.7,
   p_tox_init_3_3 = 0.05,
-  delta_dosis_3_3 = 0.1
+  delta_dosis_3_3 = 0.092
 )
 }
 \arguments{
@@ -36,19 +36,19 @@ run_simulation_logistic(
 
 \item{N}{Total number of patients in the CRM design. Default is 24.}
 
-\item{n_initial}{Number of patients per dose level in both designs. Default is 3.}
+\item{n_initial}{Number of patients per dose level in the CRM design (not used in 3+3). Default is 1.}
 
 \item{q_0}{Initial toxicity probability for CRM design. Default is 0.05.}
 
-\item{q_2}{Fraction of patients in CRM stage 1. Default is 0.5.}
+\item{q_2}{Fraction of patients in CRM stage 1. Default is 0.4.}
 
 \item{q_1}{Target probability of observing at least one toxicity in CRM stage 1. Default is 0.9.}
 
 \item{lim_sup_prob}{Maximum probability of toxicity the model allows. Default is 0.7.}
 
-\item{p_tox_init_3_3}{Initial toxicity probability for the 3+3 model. Default is 0.02.}
+\item{p_tox_init_3_3}{Initial toxicity probability for the 3+3 model. Default is 0.05.}
 
-\item{delta_dosis_3_3}{Step size for dose escalation in the 3+3 model. Default is 0.05.}
+\item{delta_dosis_3_3}{Step size for dose escalation in the 3+3 model. Default is 0.092.}
 }
 \value{
 A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
@@ -70,8 +70,13 @@ A \code{data.frame} with one row per method ("3+3" and "2stage") and the followi
   \item{q1_tox}{First quartile (Q1) of the number of toxicities}
   \item{q3_tox}{Third quartile (Q3) of the number of toxicities}
   \item{max_tox}{Maximum number of toxicities}
+  \item{iqr_tox}{Interquartile range of the number of toxicities}
 }
 }
 \description{
-Compares the MTD estimation and toxicity count between the 3+3 method and the two-stage CRM using multiple replications.
+Simulates and compares MTD estimates and toxicity outcomes between the 3+3 design and a two-stage CRM design over multiple replications.
+}
+\examples{
+df <- run_simulation_logistic(num_rep = 100)
+head(df)
 }

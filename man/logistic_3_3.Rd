@@ -5,23 +5,23 @@
 \title{3+3 Design Simulation for Logistic model with 2 parameters}
 \usage{
 logistic_3_3(
-  theta_0 = c(-3, 2),
-  theta = c(-3.1, 1.8),
+  theta = c(-3, 2),
+  theta_0 = c(-3.1, 1.8),
   n_initial = 3,
   p_tox_init = 0.05,
-  delta_dosis = 0.1,
+  delta_dosis = 0.092,
   seed = 1234,
   show_plot = FALSE
 )
 }
 \arguments{
-\item{theta_0}{Nominal value for the vector of parameters. Default is c(-3.1,1.8).}
-
 \item{theta}{True value of the vector of parameters for the dose-toxicity curve. Default is c(-3,2).}
+
+\item{theta_0}{Nominal value for the vector of parameters. Default is c(-3.1,1.8).}
 
 \item{n_initial}{Number of patients per dose level. Default is 3.}
 
-\item{p_tox_init}{Initial toxicity probability for computing starting dose. Default is 0.02.}
+\item{p_tox_init}{Initial toxicity probability for computing starting dose. Default is 0.05.}
 
 \item{delta_dosis}{Step size for dose escalation. Default is 0.05.}
 
@@ -31,14 +31,16 @@ logistic_3_3(
 }
 \value{
 A list with:
-  \item{n_toxicities}{Total number of toxicities observed}
-  \item{mtd_estimated}{Estimated MTD (last safe dose)}
-  \item{n_patients}{Total number of patients enrolled}
-  \item{x}{Dose levels assigned}
-  \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic)}
+\describe{
+  \item{n_toxicities}{Total number of toxicities observed.}
+  \item{mtd_estimated}{Estimated MTD (last safe dose).}
+  \item{n_patients}{Total number of patients enrolled.}
+  \item{x}{Dose levels assigned.}
+  \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic).}
+}
 }
 \description{
-Simulates one trial using a 3+3 dose-escalation method for estimating the Maximum Tolerated Dose (MTD).
+Simulates a single trial using a 3+3 dose-escalation method for estimating the Maximum Tolerated Dose (MTD).
 }
 \examples{
 res <- logistic_3_3()

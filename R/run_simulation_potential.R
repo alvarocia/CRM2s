@@ -8,17 +8,19 @@
 #' @param theta_0 Nominal value of theta used in CRM and 3+3 escalation models. Default is 2.7.
 #' @param theta True theta used for generating the MTD reference. Default is 3.
 #' @param N Total number of patients in the CRM design. Default is 24.
-#' @param n_initial Number of patients per dose level in both designs. Default is 3.
+#' @param n_initial Number of patients per dose level in the CRM design (not used in 3+3). Default is 1.
 #' @param q_0 Initial toxicity probability for CRM design. Default is 0.05.
 #' @param q_2 Fraction of patients in CRM stage 1. Default is 0.5.
 #' @param q_1 Target probability of observing at least one toxicity in CRM stage 1. Default is 0.9.
 #' @param p_tox_init_3_3 Initial toxicity probability for the 3+3 model. Default is 0.02.
-#' @param delta_dosis_3_3 Step size for dose escalation in the 3+3 model. Default is 0.05.
+#' @param delta_dosis_3_3 Step size for dose escalation in the 3+3 model. Default is 0.055.
 #' @param fixed_optimal_dose Reference dose for optimal CRM design. Default is 0.2032.
 #'
 #' @return A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
 #' \describe{
 #'   \item{method}{Design used ("3+3" or "2stage")}
+#'   \item{mean_pat}{Mean of patients}
+#'   \item{median_pat}{Median of patients}
 #'   \item{mean_mtd}{Mean of the estimated MTDs}
 #'   \item{var_mtd}{Variance of the estimated MTDs}
 #'   \item{median_mtd}{Median of the estimated MTDs}
@@ -33,8 +35,12 @@
 #'   \item{q1_tox}{First quartile (Q1) of the number of toxicities}
 #'   \item{q3_tox}{Third quartile (Q3) of the number of toxicities}
 #'   \item{max_tox}{Maximum number of toxicities}
+#'   \item{iqr_tox}{Interquartile range of the number of toxicities}
 #' }
 #' @import lattice
+#' @examples
+#' df <- run_simulation_potential(num_rep = 100)
+#' head(df)
 #' @export
 run_simulation_potential <- function(num_rep = 1000,
                                      seed = 1234,
@@ -43,12 +49,12 @@ run_simulation_potential <- function(num_rep = 1000,
                                      theta_0 = 2.7,
                                      theta = 3,
                                      N = 24,
-                                     n_initial = 3,
+                                     n_initial = 1,
                                      q_0 = 0.05,
                                      q_2 = 0.5,
                                      q_1 = 0.9,
                                      p_tox_init_3_3 = 0.02,
-                                     delta_dosis_3_3 = 0.05,
+                                     delta_dosis_3_3 = 0.055,
                                      fixed_optimal_dose = 0.2032) {
   mtd_true <- p0^(1 / theta)
 
@@ -57,6 +63,7 @@ run_simulation_potential <- function(num_rep = 1000,
   mtd_3_3_estimated <- numeric(num_rep)
   mtd_proposal_estimated <- numeric(num_rep)
   n_tox_proposal <- numeric(num_rep)
+  n_patients_3_3 <- numeric(num_rep)
 
   for (i in 1:num_rep) {
     results_3_3 <- potential_3_3(seed = seed + i,
@@ -68,6 +75,7 @@ run_simulation_potential <- function(num_rep = 1000,
                                  show_plot = FALSE)
     n_tox_3_3[i] <- results_3_3$n_toxicities
     mtd_3_3_estimated[i] <- results_3_3$mtd_estimated
+    n_patients_3_3[i] <- results_3_3$n_patients
 
     results_crm <- two_stage_crm_potential(seed = seed + i,
                                            p0 = p0,
@@ -93,6 +101,10 @@ run_simulation_potential <- function(num_rep = 1000,
     group = factor(rep(c("3+3", "Two stage CRM"), each = num_rep))
   )
 
+  my_breaks <- seq(min(df$value, na.rm = TRUE)-delta_dosis_3_3/2,
+                   max(df$value, na.rm = TRUE)+3*delta_dosis_3_3/2,
+                   by = delta_dosis_3_3)
+
   if (save_plot) {
     if (!dir.exists("PLOTS")) {
       dir.create("PLOTS")
@@ -102,9 +114,9 @@ run_simulation_potential <- function(num_rep = 1000,
 
   # --- Plot 1: Estimated MTD ---
   print(lattice::bwplot(value ~ group, data = df, coef = 0, pch = "|",
-                  main = "Estimated MTD",
+                  main = "",
                   xlab = "Method",
-                  ylab = "",
+                  ylab = "Estimated MTD",
                   ylim = range(0.7 * min(df$value, na.rm = TRUE),
                                1.1 * max(df$value, na.rm = TRUE)),
                   par.settings = list(
@@ -115,7 +127,7 @@ run_simulation_potential <- function(num_rep = 1000,
                     superpose.symbol = list(col = "black")
                   ),
                   panel = function(...) {
-                    panel.hanoi(col = "grey", ...)
+                    panel.hanoi(breaks = my_breaks, col = "grey", ...)
                     lattice::panel.bwplot(...)
                     lattice::panel.abline(h = mtd_true, lty = 3, col = "red", lwd = 2)
                   }))
@@ -135,9 +147,9 @@ run_simulation_potential <- function(num_rep = 1000,
   }
 
   print(lattice::bwplot(value ~ group, data = df_2, coef = 0, pch = "|",
-                  main = "Number of toxicities",
+                  main = "",
                   xlab = "Method",
-                  ylab = "",
+                  ylab = "Number of toxicities",
                   ylim = range( min(df_2$value, na.rm = TRUE)-1,
                                max(df_2$value, na.rm = TRUE)+1),
                   par.settings = list(
@@ -157,7 +169,8 @@ run_simulation_potential <- function(num_rep = 1000,
 
   result_df <- data.frame(
     method = c("3+3", "2stage"),
-
+    mean_pat   = c(mean(n_patients_3_3), N),
+    median_pat = c(median(n_patients_3_3), N),
     mean_mtd   = c(mean(mtd_3_3_estimated), mean(mtd_proposal_estimated)),
     var_mtd    = c(var(mtd_3_3_estimated), var(mtd_proposal_estimated)),
     median_mtd = c(median(mtd_3_3_estimated), median(mtd_proposal_estimated)),

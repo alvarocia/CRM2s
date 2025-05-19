@@ -1,18 +1,19 @@
 #' @title Export Simulation Summary to LaTeX
 #' @description Writes a LaTeX table with MTD and toxicity summaries using cat(), without external dependencies.
 #'
-#' @param df A data frame from simulate_across_n_initial()[[model]].
+#' @param df A data frame with simulation summaries for one model (e.g., \code{result_list$potential}) as returned by \code{simulate_across_n_initial()}.
 #' @param file_path Path to the output .tex file.
 #' @export
 #' @examples
 #' result_list <- simulate_across_n_initial()
 #' export_simulation_table_manual(result_list$potential, "table_potential.tex")
-export_simulation_table_manual <- function(df, file_path = "simulation_results.tex") {
+#' export_simulation_table_manual(result_list$logistic, "table_logistic.tex")
+export_simulation_table_manual <- function(df, file_path = "RESULTS/simulation_results.tex") {
   con <- file(file_path, open = "wt")
 
   cat("\\begin{tabular}{llcccc}\n", file = con)
   cat("\\toprule\n", file = con)
-  cat("Method & $n_{\\text{initial}}$ & Mean (Var) MTD & Median (IQR) MTD & Mean (Var) Tox & Median (IQR) Tox \\\\\n", file = con)
+  cat("Method & $n_{\\text{initial}}$ & Mean MTD (Var)  & Median MTD (IQR)  & Mean Tox (Var)  & Median Tox (IQR)  \\\\\n", file = con)
   cat("\\midrule\n", file = con)
 
   df_crm <- df[df$method == "2stage", ]
@@ -30,7 +31,7 @@ export_simulation_table_manual <- function(df, file_path = "simulation_results.t
       sprintf("%.3f (%.3f)", row$mean_mtd, row$var_mtd),
       sprintf("%.3f (%.3f)", row$median_mtd, row$iqr_mtd),
       sprintf("%.3f (%.3f)", row$mean_tox, row$var_tox),
-      sprintf("%.3f (%.3f)", row$median_tox, row$iqr_tox)
+      sprintf("%.1f (%.2f)", row$median_tox, row$iqr_tox)
     ), file = con)
   }
 
@@ -40,7 +41,7 @@ export_simulation_table_manual <- function(df, file_path = "simulation_results.t
     sprintf("%.3f (%.3f)", df_3_3$mean_mtd, df_3_3$var_mtd),
     sprintf("%.3f (%.3f)", df_3_3$median_mtd, df_3_3$iqr_mtd),
     sprintf("%.3f (%.3f)", df_3_3$mean_tox, df_3_3$var_tox),
-    sprintf("%.3f (%.3f)", df_3_3$median_tox, df_3_3$iqr_tox)
+    sprintf("%.1f (%.2f)", df_3_3$median_tox, df_3_3$iqr_tox)
   ), file = con)
 
   cat("\\bottomrule\n", file = con)

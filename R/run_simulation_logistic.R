@@ -1,5 +1,5 @@
-#' @title Run Simulation Comparison Between 3+3 and Two-Stage CRM for the logistic model with two parameters
-#' @description Compares the MTD estimation and toxicity count between the 3+3 method and the two-stage CRM using multiple replications.
+#' @title Simulation Comparison of 3+3 and Two-Stage CRM Designs for a Logistic Model with Two Parameters
+#' @description Simulates and compares MTD estimates and toxicity outcomes between the 3+3 design and a two-stage CRM design over multiple replications.
 #'
 #' @param num_rep Number of replications to run. Default is 1000.
 #' @param seed Base random seed for reproducibility. Default is 1234.
@@ -8,13 +8,13 @@
 #' @param theta True value of the vector of parameters for the dose-toxicity curve. Default is c(-3,2).
 #' @param theta_0 Nominal value for the vector of parameters. Default is c(-3.1,1.8).
 #' @param N Total number of patients in the CRM design. Default is 24.
-#' @param n_initial Number of patients per dose level in both designs. Default is 3.
+#' @param n_initial Number of patients per dose level in the CRM design (not used in 3+3). Default is 1.
 #' @param q_0 Initial toxicity probability for CRM design. Default is 0.05.
-#' @param q_2 Fraction of patients in CRM stage 1. Default is 0.5.
+#' @param q_2 Fraction of patients in CRM stage 1. Default is 0.4.
 #' @param q_1 Target probability of observing at least one toxicity in CRM stage 1. Default is 0.9.
 #' @param lim_sup_prob Maximum probability of toxicity the model allows. Default is 0.7.
-#' @param p_tox_init_3_3 Initial toxicity probability for the 3+3 model. Default is 0.02.
-#' @param delta_dosis_3_3 Step size for dose escalation in the 3+3 model. Default is 0.05.
+#' @param p_tox_init_3_3 Initial toxicity probability for the 3+3 model. Default is 0.05.
+#' @param delta_dosis_3_3 Step size for dose escalation in the 3+3 model. Default is 0.092.
 #'
 #' @return A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
 #' \describe{
@@ -35,23 +35,27 @@
 #'   \item{q1_tox}{First quartile (Q1) of the number of toxicities}
 #'   \item{q3_tox}{Third quartile (Q3) of the number of toxicities}
 #'   \item{max_tox}{Maximum number of toxicities}
+#'   \item{iqr_tox}{Interquartile range of the number of toxicities}
 #' }
 #' @import lattice
+#' @examples
+#' df <- run_simulation_logistic(num_rep = 100)
+#' head(df)
 #' @export
-run_simulation_logistic <- function(num_rep = 100,
+run_simulation_logistic <- function(num_rep = 1000,
                                      seed = 1234,
                                      save_plot = FALSE,
                                      p0 = 0.4,
                                      theta = c(-3,2),
                                      theta_0 = c(-3.1,1.8),
                                      N = 24,
-                                     n_initial = 3,
+                                     n_initial = 1,
                                      q_0 = 0.05,
                                      q_2 = 0.4,
                                      q_1 = 0.9,
                                      lim_sup_prob = 0.7,
                                      p_tox_init_3_3 = 0.05,
-                                     delta_dosis_3_3 = 0.1) {
+                                     delta_dosis_3_3 = 0.092) {
 
   if (theta[2] <= 0) {
     stop(sprintf("Invalid value: beta = %.2f must be > 0", theta[2]))
@@ -80,7 +84,7 @@ run_simulation_logistic <- function(num_rep = 100,
     results_3_3 <- logistic_3_3(seed = seed + i,
                                  theta = theta,
                                  theta_0 = theta_0,
-                                 n_initial = n_initial,
+                                 n_initial = 3,
                                  p_tox_init = p_tox_init_3_3,
                                  delta_dosis = delta_dosis_3_3,
                                  show_plot = FALSE)
@@ -112,19 +116,20 @@ run_simulation_logistic <- function(num_rep = 100,
     group = factor(rep(c("3+3", "Two stage CRM"), each = num_rep))
   )
 
+
   if (save_plot) {
-    if (!dir.exists("PLOTS/logistic_2_par")) {
-      dir.create("PLOTS/logistic_2_par")
+    if (!dir.exists("PLOTS")) {
+      dir.create("PLOTS")
     }
-    pdf("PLOTS/logistic_2_par/compare_MTD_logistic.pdf", width = 5.6, height = 4.2)
+    pdf("PLOTS/compare_MTD_logistic.pdf", width = 5.6, height = 4.2)
   }
 
   # --- Plot 1: Estimated MTD ---
   print(lattice::bwplot(value ~ group, data = df, coef = 0, pch = "|",
-                  main = "Estimation of MTD",
+                  main = "",
                   xlab = "Method",
                   ylab = "Estimated MTD",
-                  ylim = range(0,
+                  ylim = range(-0.1,
                                1.1 * max(df$value, na.rm = TRUE)),
                   par.settings = list(
                     box.rectangle = list(col = "black"),
@@ -150,13 +155,13 @@ run_simulation_logistic <- function(num_rep = 100,
   my_breaks <- seq(min(df_2$value, na.rm = TRUE)-0.5, max(df_2$value, na.rm = TRUE)+0.5, by = 1)
 
   if (save_plot) {
-    pdf("PLOTS/logistic_2_par/compare_tox_logistic.pdf", width = 5.6, height = 4.2)
+    pdf("PLOTS/compare_tox_logistic.pdf", width = 5.6, height = 4.2)
   }
 
   print(lattice::bwplot(value ~ group, data = df_2, coef = 0, pch = "|",
-                  main = "Number of toxicities",
+                  main = "",
                   xlab = "Method",
-                  ylab = "",
+                  ylab = "Number of toxicities",
                   ylim = range( min(df_2$value, na.rm = TRUE)-1,
                                max(df_2$value, na.rm = TRUE)+1),
                   par.settings = list(
@@ -191,14 +196,18 @@ run_simulation_logistic <- function(num_rep = 100,
     iqr_mtd    = c(IQR(mtd_3_3_estimated), IQR(mtd_proposal_estimated)),
 
     mean_tox   = c(mean(n_tox_3_3), mean(n_tox_proposal)),
+    var_tox   = c(var(n_tox_3_3), var(n_tox_proposal)),
     median_tox = c(median(n_tox_3_3), median(n_tox_proposal)),
     min_tox    = c(min(n_tox_3_3), min(n_tox_proposal)),
     q1_tox     = c(as.numeric(quantile(n_tox_3_3, 0.25)),
                    as.numeric(quantile(n_tox_proposal, 0.25))),
     q3_tox     = c(as.numeric(quantile(n_tox_3_3, 0.75)),
                    as.numeric(quantile(n_tox_proposal, 0.75))),
-    max_tox    = c(max(n_tox_3_3), max(n_tox_proposal))
+    max_tox    = c(max(n_tox_3_3), max(n_tox_proposal)),
+    iqr_tox    = c(IQR(n_tox_3_3), IQR(n_tox_proposal))
   )
+
+
 
   return(result_df)
 }

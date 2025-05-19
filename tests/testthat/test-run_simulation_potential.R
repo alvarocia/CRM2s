@@ -8,9 +8,9 @@ test_that("run_simulation_potential returns valid summary data frame", {
 
   # Check for expected column names
   expected_cols <- c(
-    "method",
+    "method", "mean_pat", "median_pat",
     "mean_mtd", "var_mtd", "median_mtd", "min_mtd", "q1_mtd", "q3_mtd", "max_mtd", "iqr_mtd",
-    "mean_tox", "median_tox", "min_tox", "q1_tox", "q3_tox", "max_tox"
+    "mean_tox", "var_tox", "median_tox", "min_tox", "q1_tox", "q3_tox", "max_tox", "iqr_tox"
   )
   expect_named(result, expected_cols)
 

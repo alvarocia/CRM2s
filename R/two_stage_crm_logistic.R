@@ -3,7 +3,7 @@
 #'
 #' @param p0 Target toxicity probability. Default is 0.4.
 #' @param theta True value for the vector of parameters for the dose-toxicity curve. Default is c(-3,2).
-#' @param theta_0 Nominal value of the vector of parameters. Default is 2.7.
+#' @param theta_0 Nominal value of the vector of parameters. Default is c(-3.1, 1.8).
 #' @param N Total number of patients (including both stages). Default is 24.
 #' @param n_initial Number of patients per dose in stage 1. Default is 3.
 #' @param q_0 Toxicity probability at first dose. Default is 0.02.
@@ -16,12 +16,12 @@
 #' \describe{
 #'   \item{n_toxicities}{Total number of toxicities observed.}
 #'   \item{mtd_estimated}{Estimated Maximum Tolerated Dose (MTD). If no toxicity is observed in the first stage, the MTD is set to the largest dose level used.}
-#'   \item{mle_theta}{Estimated value of the dose-toxicity parameter \eqn{\theta}. Set to \code{NA} if no toxicity is detected in stage 1.}
+#'   \item{mle_theta}{Vector of estimated parameters \eqn{\theta = (\alpha, \beta)} for the logistic dose-toxicity model. Set to \code{NA} if no toxicity is detected in stage 1.}
 #'   \item{x}{Vector of dose levels administered.}
 #'   \item{y}{Vector of toxicity outcomes (1 = toxic, 0 = non-toxic).}
 #' }
 #' @note
-#' If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated..
+#' If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated.
 #' A warning is issued, and the MTD is conservatively estimated as the highest dose level reached.
 #' The value of \code{mle_theta} is set to \code{NA} in this case.
 #'
@@ -70,9 +70,10 @@ two_stage_crm_logistic <- function(
     return(1 - prob - q_1)
   }
 
-  h_opt <- uniroot(prob_h, lower = 0, upper = 5)$root
+  h_opt <- uniroot(prob_h, lower = 0, upper = 20)$root
 
   d_initial <- c()
+  new_dose <- NULL
   for (k in 0:floor(N / n_initial)) {
     if (x0 + k * h_opt < x_max){
       new_dose <- x0 + k * h_opt
@@ -156,7 +157,7 @@ two_stage_crm_logistic <- function(
     x <- c(x, opt_dose_estimated)
     y <- c(y, rbinom(1, size = 1, prob = response_probability))
 
-    model <- glm(y ~ x, family = binomial(link = "logit"))
+    model <- suppressWarnings(glm(y ~ x, family = binomial(link = "logit")))
 
     mle_theta <- as.numeric(coef(model))
     mtd_estimated <- (log(p0/(1-p0))-mle_theta[1])/mle_theta[2]
@@ -181,7 +182,7 @@ two_stage_crm_logistic <- function(
          pch = ifelse(y == 1, 4, 1),
          xlab = "Patient number",
          ylab = "Dose level",
-         main = "Two-stage CRM",
+         main = "",
          ylim = c(min(x) * 0.9, max(x) * 1.1))
 
     legend("bottomright",

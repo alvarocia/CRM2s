@@ -7,5 +7,6 @@ test_that("two_stage_crm_potential runs and returns expected output", {
   expect_length(result$x, length(result$y))
   expect_true(all(result$y %in% c(0, 1)))
   expect_true(result$mtd_estimated > 0)
+  expect_true(is.numeric(result$mle_theta))
   expect_true(result$mle_theta > 0)
 })

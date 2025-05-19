@@ -5,8 +5,8 @@
 \title{3+3 Design Simulation for Potential model}
 \usage{
 potential_3_3(
-  theta_0 = 2.7,
   theta = 3,
+  theta_0 = 2.7,
   n_initial = 3,
   p_tox_init = 0.02,
   delta_dosis = 0.05,
@@ -15,9 +15,9 @@ potential_3_3(
 )
 }
 \arguments{
-\item{theta_0}{Nominal value for the dose-toxicity curve. Default is 2.7.}
-
 \item{theta}{True value for the dose-toxicity curve. Default is 3.}
+
+\item{theta_0}{Nominal value for the dose-toxicity curve. Default is 2.7.}
 
 \item{n_initial}{Number of patients per dose level. Default is 3.}
 
@@ -31,11 +31,13 @@ potential_3_3(
 }
 \value{
 A list with:
-  \item{n_toxicities}{Total number of toxicities observed}
-  \item{mtd_estimated}{Estimated MTD (last safe dose)}
-  \item{n_patients}{Total number of patients enrolled}
-  \item{x}{Dose levels assigned}
-  \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic)}
+\describe{
+  \item{n_toxicities}{Total number of toxicities observed.}
+  \item{mtd_estimated}{Estimated MTD (last safe dose).}
+  \item{n_patients}{Total number of patients enrolled.}
+  \item{x}{Dose levels assigned.}
+  \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic).}
+}
 }
 \description{
 Simulates one trial using a 3+3 dose-escalation method for estimating the Maximum Tolerated Dose (MTD).

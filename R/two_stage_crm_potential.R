@@ -22,7 +22,7 @@
 #'   \item{y}{Vector of toxicity outcomes (1 = toxic, 0 = non-toxic).}
 #' }
 #' @note
-#' If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated..
+#' If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated.
 #' A warning is issued, and the MTD is conservatively estimated as the highest dose level reached.
 #' The value of \code{mle_theta} is set to \code{NA} in this case.
 #'
@@ -60,6 +60,7 @@ two_stage_crm_potential <- function(
   h_opt <- uniroot(prob_h, lower = 0, upper = (1 - x0) / (k_max - 1))$root
 
   d_initial <- c()
+  new_dose <- NULL
   for (k in 0:floor(N / n_initial)) {
     if ((x0 + k * h_opt) < 1) {
       new_dose <- x0 + k * h_opt
@@ -116,7 +117,7 @@ two_stage_crm_potential <- function(
          pch = ifelse(y == 1, 4, 1),
          xlab = "Patient number",
          ylab = "Dose level",
-         main = "Two-stage CRM",
+         main = "",
          ylim = c(min(x) * 0.9, max(x) * 1.1))
 
     legend("bottomright",

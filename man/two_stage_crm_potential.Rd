@@ -55,7 +55,7 @@ A list with:
 Performs one simulation run of a two-stage CRM design for estimating the Maximum Tolerated Dose (MTD) in phase I trials.
 }
 \note{
-If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated..
+If no toxicity is observed during the first stage of the trial (i.e., \code{sum(y) == 0}), the simulation is terminated.
 A warning is issued, and the MTD is conservatively estimated as the highest dose level reached.
 The value of \code{mle_theta} is set to \code{NA} in this case.
 }

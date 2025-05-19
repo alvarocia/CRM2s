@@ -10,11 +10,13 @@
 #' @param show_plot Logical. If TRUE, plot dose level vs. patient index. Default is FALSE.
 #'
 #' @return A list with:
-#'   \item{n_toxicities}{Total number of toxicities observed}
-#'   \item{mtd_estimated}{Estimated MTD (last safe dose)}
-#'   \item{n_patients}{Total number of patients enrolled}
-#'   \item{x}{Dose levels assigned}
-#'   \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic)}
+#' \describe{
+#'   \item{n_toxicities}{Total number of toxicities observed.}
+#'   \item{mtd_estimated}{Estimated MTD (last safe dose).}
+#'   \item{n_patients}{Total number of patients enrolled.}
+#'   \item{x}{Dose levels assigned.}
+#'   \item{y}{Observed toxicity outcomes (1 = toxic, 0 = non-toxic).}
+#' }
 #'
 #' @examples
 #' res <- potential_3_3()
@@ -22,8 +24,8 @@
 #'
 #' @export
 potential_3_3 <- function(
-  theta_0 = 2.7,
   theta = 3,
+  theta_0 = 2.7,
   n_initial = 3,
   p_tox_init = 0.02,
   delta_dosis = 0.05,
@@ -36,6 +38,7 @@ potential_3_3 <- function(
   x0 <- p_tox_init^(1/theta_0)
 
   d_initial <- c()
+  new_dose <- NULL
   for (k in 0:floor((1-x0)/delta_dosis + 5)) {
     if ((x0 + k * delta_dosis) < 1) {
       new_dose <- x0 + k * delta_dosis
@@ -80,7 +83,7 @@ potential_3_3 <- function(
          pch = ifelse(y == 1, 4, 1),
          xlab = "Patient number",
          ylab = "Dose level",
-         main = "3+3 Design",
+         main = "",
          ylim = c(min(x) * 0.9, max(x) * 1.1))
 
     legend("bottomright",
