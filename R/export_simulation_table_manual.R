@@ -16,10 +16,10 @@ export_simulation_table_manual <- function(df, file_path = "RESULTS/simulation_r
   cat("Method & $n_{\\text{initial}}$ & Mean MTD (Var)  & Median MTD (IQR)  & Mean Tox (Var)  & Median Tox (IQR)  \\\\\n", file = con)
   cat("\\midrule\n", file = con)
 
-  df_crm <- df[df$method == "2stage", ]
+  df_crm <- df[df$method == "CRMC", ]
   df_3_3 <- df[df$method == "3+3", ]
 
-  cat(sprintf("\\multirow{%d}{*}{CRM}", nrow(df_crm)), file = con)
+  cat(sprintf("\\multirow{%d}{*}{CRMC}", nrow(df_crm)), file = con)
 
   for (i in seq_len(nrow(df_crm))) {
     row <- df_crm[i, ]

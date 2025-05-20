@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_simulation_logistic.R
 \name{run_simulation_logistic}
 \alias{run_simulation_logistic}
-\title{Simulation Comparison of 3+3 and Two-Stage CRM Designs for a Logistic Model with Two Parameters}
+\title{Simulation Comparison of 3+3 and CRMC Designs for a Logistic Model with Two Parameters}
 \usage{
 run_simulation_logistic(
   num_rep = 1000,
@@ -51,9 +51,9 @@ run_simulation_logistic(
 \item{delta_dosis_3_3}{Step size for dose escalation in the 3+3 model. Default is 0.092.}
 }
 \value{
-A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
+A \code{data.frame} with one row per method ("3+3" and "CRMC") and the following columns:
 \describe{
-  \item{method}{Design used ("3+3" or "2stage")}
+  \item{method}{Design used ("3+3" or "CRMC")}
   \item{mean_pat}{Mean of patients}
   \item{median_pat}{Median of patients}
   \item{mean_mtd}{Mean of the estimated MTDs}

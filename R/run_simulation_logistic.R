@@ -1,4 +1,4 @@
-#' @title Simulation Comparison of 3+3 and Two-Stage CRM Designs for a Logistic Model with Two Parameters
+#' @title Simulation Comparison of 3+3 and CRMC Designs for a Logistic Model with Two Parameters
 #' @description Simulates and compares MTD estimates and toxicity outcomes between the 3+3 design and a two-stage CRM design over multiple replications.
 #'
 #' @param num_rep Number of replications to run. Default is 1000.
@@ -16,9 +16,9 @@
 #' @param p_tox_init_3_3 Initial toxicity probability for the 3+3 model. Default is 0.05.
 #' @param delta_dosis_3_3 Step size for dose escalation in the 3+3 model. Default is 0.092.
 #'
-#' @return A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
+#' @return A \code{data.frame} with one row per method ("3+3" and "CRMC") and the following columns:
 #' \describe{
-#'   \item{method}{Design used ("3+3" or "2stage")}
+#'   \item{method}{Design used ("3+3" or "CRMC")}
 #'   \item{mean_pat}{Mean of patients}
 #'   \item{median_pat}{Median of patients}
 #'   \item{mean_mtd}{Mean of the estimated MTDs}
@@ -73,7 +73,7 @@ run_simulation_logistic <- function(num_rep = 1000,
 
   mtd_true <- (log(p0/(1-p0))-theta[1])/theta[2]
 
-  # Run 3+3 and CRM simulations
+  # Run 3+3 and CRMC simulations
   n_tox_3_3 <- numeric(num_rep)
   mtd_3_3_estimated <- numeric(num_rep)
   mtd_proposal_estimated <- numeric(num_rep)
@@ -113,7 +113,7 @@ run_simulation_logistic <- function(num_rep = 1000,
   # Visualization using lattice
   df <- data.frame(
     value = c(mtd_3_3_estimated, mtd_proposal_estimated),
-    group = factor(rep(c("3+3", "Two stage CRM"), each = num_rep))
+    group = factor(rep(c("3+3", "CRMC"), each = num_rep))
   )
 
 
@@ -149,7 +149,7 @@ run_simulation_logistic <- function(num_rep = 1000,
 
   df_2 <- data.frame(
     value = c(n_tox_3_3, n_tox_proposal),
-    group = factor(rep(c("3+3", "Two stage CRM"), each = num_rep))
+    group = factor(rep(c("3+3", "CRMC"), each = num_rep))
   )
 
   my_breaks <- seq(min(df_2$value, na.rm = TRUE)-0.5, max(df_2$value, na.rm = TRUE)+0.5, by = 1)
@@ -180,7 +180,7 @@ run_simulation_logistic <- function(num_rep = 1000,
   }
 
   result_df <- data.frame(
-    method = c("3+3", "2stage"),
+    method = c("3+3", "CRMC"),
 
     mean_pat   = c(mean(n_patients_3_3), N),
     median_pat = c(median(n_patients_3_3), N),

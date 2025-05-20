@@ -4,7 +4,7 @@
 #' @param num_rep Number of repetitions for each simulation. Default is 500.
 #' @param seed Random seed. Default is 1234.
 #'
-#' @return A list of two data frames: \code{$potential} and \code{$logistic}, each containing results for CRM at n_initial = 1:5 and 3+3.
+#' @return A list of two data frames: \code{$potential} and \code{$logistic}, each containing results for CRMC at n_initial = 1:4 and 3+3.
 #' @export
 #' @examples
 #' result_list <- simulate_across_n_initial()
@@ -20,7 +20,7 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
       n_initial = n_init,
       save_plot = FALSE
     )
-    crm_row <- df[df$method == "2stage", ]
+    crm_row <- df[df$method == "CRMC", ]
     crm_row$n_initial <- n_init
     return(crm_row)
   })
@@ -50,7 +50,7 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
       n_initial = n_init,
       save_plot = FALSE
     )
-    crm_row <- df[df$method == "2stage", ]
+    crm_row <- df[df$method == "CRMC", ]
     crm_row$n_initial <- n_init
     return(crm_row)
   })

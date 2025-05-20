@@ -12,7 +12,7 @@ simulate_across_n_initial(num_rep = 500, seed = 1234)
 \item{seed}{Random seed. Default is 1234.}
 }
 \value{
-A list of two data frames: \code{$potential} and \code{$logistic}, each containing results for CRM at n_initial = 1:5 and 3+3.
+A list of two data frames: \code{$potential} and \code{$logistic}, each containing results for CRMC at n_initial = 1:4 and 3+3.
 }
 \description{
 Runs simulations using run_simulation_potential() and run_simulation_logistic() with varying n_initial values and summarizes key results.

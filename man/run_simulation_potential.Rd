@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_simulation_potential.R
 \name{run_simulation_potential}
 \alias{run_simulation_potential}
-\title{Run Simulation Comparison Between 3+3 and Two-Stage CRM for the potential model}
+\title{Run Simulation Comparison Between 3+3 and CRMC for the potential model}
 \usage{
 run_simulation_potential(
   num_rep = 1000,
@@ -51,9 +51,9 @@ run_simulation_potential(
 \item{fixed_optimal_dose}{Reference dose for optimal CRM design. Default is 0.2032.}
 }
 \value{
-A \code{data.frame} with one row per method ("3+3" and "2stage") and the following columns:
+A \code{data.frame} with one row per method ("3+3" and "CRMC") and the following columns:
 \describe{
-  \item{method}{Design used ("3+3" or "2stage")}
+  \item{method}{Design used ("3+3" or "CRMC")}
   \item{mean_pat}{Mean of patients}
   \item{median_pat}{Median of patients}
   \item{mean_mtd}{Mean of the estimated MTDs}

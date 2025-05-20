@@ -8,7 +8,7 @@
 
 -   Simulate individual clinical trials using:
     -   3+3 design (logistic or potential model)
-    -   Two-stage CRM based on C-optimality
+    -   CRMC: Two-stage CRM based on C-optimality
 -   Compare methods based on MTD estimation and toxicity outcomes
 -   Visualize patient-level dose allocations and outcomes
 
@@ -90,7 +90,7 @@ CRMC/
 
 ## 📄 License
 
-This package is released under the MIT License.
+This package is released under the GLP License.
 
 ------------------------------------------------------------------------
 

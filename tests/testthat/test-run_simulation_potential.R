@@ -4,7 +4,7 @@ test_that("run_simulation_potential returns valid summary data frame", {
   # Check the result is a data.frame with 2 rows and expected columns
   expect_s3_class(result, "data.frame")
   expect_equal(nrow(result), 2)
-  expect_equal(sort(result$method), c("2stage", "3+3"))
+  expect_equal(sort(result$method), c("3+3","CRMC"))
 
   # Check for expected column names
   expected_cols <- c(
