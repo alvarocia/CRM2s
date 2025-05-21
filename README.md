@@ -92,7 +92,7 @@ CRM2s/
 
 ## 📄 License
 
-This package is released under the terms of the [MIT License](LICENSE.md).
+This package is released under the terms of the [GNU General Public License v3.0](LICENSE.md).
 
 ------------------------------------------------------------------------
 
