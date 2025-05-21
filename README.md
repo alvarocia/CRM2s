@@ -1,6 +1,6 @@
-# CRMC: C-optimality based Continual Reassessment Method
+# CRM2s: A two-stage algorithm for the Continuous Reassessment Method
 
-**CRMC** is an R package designed to simulate and compare dose-escalation methods in phase I clinical trials. It includes both the traditional **3+3 design** and a **two-stage Continual Reassessment Method (CRM)**, implemented for two types of dose-toxicity models: **logistic** and **potential**.
+**CRM2s** is an R package designed to simulate and compare dose-escalation methods in phase I clinical trials. It includes both the traditional **3+3 design** and a **two-stage Continual Reassessment Method (CRM)**, implemented for two types of dose-toxicity models: **logistic** and **power**.
 
 ------------------------------------------------------------------------
 
@@ -8,7 +8,7 @@
 
 -   Simulate individual clinical trials using:
     -   3+3 design (logistic or potential model)
-    -   CRMC: Two-stage CRM based on C-optimality
+    -   CRM2s: Two-stage CRM based on C-optimality
 -   Compare methods based on MTD estimation and toxicity outcomes
 -   Visualize patient-level dose allocations and outcomes
 
@@ -19,7 +19,7 @@
 ### From GitHub
 
 ``` r
-devtools::install_github("alvarocia/CRMC")
+devtools::install_github("alvarocia/CRM2s")
 ```
 
 ------------------------------------------------------------------------
@@ -29,13 +29,13 @@ devtools::install_github("alvarocia/CRMC")
 ### Run a two-stage CRM simulation (potential model)
 
 ``` r
-library(CRMC)
+library(CRM2s)
 
 res <- two_stage_crm_potential(show_plot = TRUE)
 print(res$mtd_estimated)
 ```
 
-### Compare 3+3 and CRM designs under the logistic model
+### Compare 3+3 and CRM2s designs under the logistic model
 
 ``` r
 result <- run_simulation_logistic(num_rep = 100)
@@ -69,7 +69,7 @@ export_simulation_table_manual(res$logistic, "RESULTS/table_logistic.tex")
 ## 📁 Package Structure
 
 ```         
-CRMC/
+CRM2s/
 ├── R/
 │   ├── potential_3_3.R
 │   ├── logistic_3_3.R

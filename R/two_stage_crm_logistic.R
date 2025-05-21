@@ -1,4 +1,4 @@
-#' @title C-optimal based two-stage Continual Reassessment Method (CRMC) Simulation for logistic model with 2 parameters
+#' @title C-optimal based two-stage Continual Reassessment Method (CRM2s) Simulation for logistic model with 2 parameters
 #' @description Performs one simulation run of a two-stage CRM design for estimating the Maximum Tolerated Dose (MTD) in phase I trials.
 #'
 #' @param p0 Target toxicity probability. Default is 0.4.

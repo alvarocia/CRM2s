@@ -4,7 +4,7 @@ test_that("run_simulation_logistic returns valid summary data frame", {
   # Check structure
   expect_s3_class(result, "data.frame")
   expect_equal(nrow(result), 2)
-  expect_equal(sort(result$method), c("3+3","CRMC"))
+  expect_equal(sort(result$method), c("3+3","CRM2s"))
 
   # Expected columns
   expected_cols <- c(

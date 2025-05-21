@@ -2,7 +2,7 @@
 % Please edit documentation in R/two_stage_crm_potential.R
 \name{two_stage_crm_potential}
 \alias{two_stage_crm_potential}
-\title{C-optimal based two-stage Continual Reassessment Method (CRMC) Simulation for potential model}
+\title{C-optimal based two-stage Continual Reassessment Method (CRM2s) Simulation for potential model}
 \usage{
 two_stage_crm_potential(
   p0 = 0.4,

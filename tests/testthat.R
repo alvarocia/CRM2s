@@ -1,4 +1,4 @@
 library(testthat)
-library(CRMC)
+library(CRM2s)
 
-test_check("CRMC")
+test_check("CRM2s")

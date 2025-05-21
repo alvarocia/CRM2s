@@ -2,7 +2,7 @@
 % Please edit documentation in R/two_stage_crm_logistic.R
 \name{two_stage_crm_logistic}
 \alias{two_stage_crm_logistic}
-\title{C-optimal based two-stage Continual Reassessment Method (CRMC) Simulation for logistic model with 2 parameters}
+\title{C-optimal based two-stage Continual Reassessment Method (CRM2s) Simulation for logistic model with 2 parameters}
 \usage{
 two_stage_crm_logistic(
   p0 = 0.4,

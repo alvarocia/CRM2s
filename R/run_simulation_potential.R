@@ -1,4 +1,4 @@
-#' @title Run Simulation Comparison Between 3+3 and CRMC for the potential model
+#' @title Run Simulation Comparison Between 3+3 and CRM2s for the potential model
 #' @description Compares the MTD estimation and toxicity count between the potential 3+3 method and the two-stage CRM using multiple replications.
 #'
 #' @param num_rep Number of replications to run. Default is 1000.
@@ -16,9 +16,9 @@
 #' @param delta_dosis_3_3 Step size for dose escalation in the 3+3 model. Default is 0.055.
 #' @param fixed_optimal_dose Reference dose for optimal CRM design. Default is 0.2032.
 #'
-#' @return A \code{data.frame} with one row per method ("3+3" and "CRMC") and the following columns:
+#' @return A \code{data.frame} with one row per method ("3+3" and "CRM2s") and the following columns:
 #' \describe{
-#'   \item{method}{Design used ("3+3" or "CRMC")}
+#'   \item{method}{Design used ("3+3" or "CRM2s")}
 #'   \item{mean_pat}{Mean of patients}
 #'   \item{median_pat}{Median of patients}
 #'   \item{mean_mtd}{Mean of the estimated MTDs}
@@ -98,7 +98,7 @@ run_simulation_potential <- function(num_rep = 1000,
   # Visualization using lattice
   df <- data.frame(
     value = c(mtd_3_3_estimated, mtd_proposal_estimated),
-    group = factor(rep(c("3+3", "CRMC"), each = num_rep))
+    group = factor(rep(c("3+3", "CRM2s"), each = num_rep))
   )
 
   my_breaks <- seq(min(df$value, na.rm = TRUE)-delta_dosis_3_3/2,
@@ -137,7 +137,7 @@ run_simulation_potential <- function(num_rep = 1000,
 
   df_2 <- data.frame(
     value = c(n_tox_3_3, n_tox_proposal),
-    group = factor(rep(c("3+3", "CRMC"), each = num_rep))
+    group = factor(rep(c("3+3", "CRM2s"), each = num_rep))
   )
 
   my_breaks <- seq(0.5, 20.5, by = 1)
@@ -168,7 +168,7 @@ run_simulation_potential <- function(num_rep = 1000,
   }
 
   result_df <- data.frame(
-    method = c("3+3", "CRMC"),
+    method = c("3+3", "CRM2s"),
     mean_pat   = c(mean(n_patients_3_3), N),
     median_pat = c(median(n_patients_3_3), N),
     mean_mtd   = c(mean(mtd_3_3_estimated), mean(mtd_proposal_estimated)),
