@@ -7,7 +7,7 @@
 ## 📦 Features
 
 -   Simulate individual clinical trials using:
-    -   3+3 design (logistic or potential model)
+    -   3+3 design (logistic or power model)
     -   CRM2s: Two-stage CRM based on C-optimality
 -   Compare methods based on MTD estimation and toxicity outcomes
 -   Visualize patient-level dose allocations and outcomes
@@ -26,12 +26,12 @@ devtools::install_github("alvarocia/CRM2s")
 
 ## 🚀 Getting Started
 
-### Run a two-stage CRM simulation (potential model)
+### Run a two-stage CRM simulation (power model)
 
 ``` r
 library(CRM2s)
 
-res <- two_stage_crm_potential(show_plot = TRUE)
+res <- two_stage_crm_power(show_plot = TRUE)
 print(res$mtd_estimated)
 ```
 
@@ -56,11 +56,11 @@ export_simulation_table_manual(res$logistic, "RESULTS/table_logistic.tex")
 | Function | Purpose |
 |--------------------------|----------------------------------------------|
 | `logistic_3_3()` | Run one 3+3 trial under logistic dose-toxicity model |
-| `potential_3_3()` | Run one 3+3 trial under potential model |
+| `power_3_3()` | Run one 3+3 trial under power model |
 | `two_stage_crm_logistic()` | Run one two-stage CRM simulation using logistic model |
-| `two_stage_crm_potential()` | Run one two-stage CRM simulation using potential model |
+| `two_stage_crm_power()` | Run one two-stage CRM simulation using power model |
 | `run_simulation_logistic()` | Run multiple simulations (logistic) and compare designs |
-| `run_simulation_potential()` | Run multiple simulations (potential) and compare designs |
+| `run_simulation_power()` | Run multiple simulations (power) and compare designs |
 | `simulate_across_n_initial()` | Vary `n_initial` and summarize results across configurations |
 | `export_simulation_table_manual()` | Export formatted LaTeX summary table |
 
@@ -71,7 +71,7 @@ export_simulation_table_manual(res$logistic, "RESULTS/table_logistic.tex")
 ```         
 CRM2s/
 ├── R/
-│   ├── potential_3_3.R
+│   ├── power_3_3.R
 │   ├── logistic_3_3.R
 │   ├── two_stage_crm_*.R
 │   ├── run_simulation_*.R
