@@ -1,5 +1,5 @@
-test_that("potential_3_3 returns correct structure and values", {
-  result <- potential_3_3(seed = 1234)
+test_that("power_3_3 returns correct structure and values", {
+  result <- power_3_3(seed = 1234)
 
   expect_type(result, "list")
   expect_named(result, c("n_toxicities", "mtd_estimated", "n_patients", "x", "y"))

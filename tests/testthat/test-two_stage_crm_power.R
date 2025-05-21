@@ -1,5 +1,5 @@
-test_that("two_stage_crm_potential runs and returns expected output", {
-  result <- two_stage_crm_potential(seed = 1234)
+test_that("two_stage_crm_power runs and returns expected output", {
+  result <- two_stage_crm_power(seed = 1234)
 
   expect_type(result, "list")
   expect_named(result, c("n_toxicities", "mtd_estimated", "mle_theta", "x", "y"))
