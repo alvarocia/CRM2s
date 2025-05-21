@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 .Rd2pdf*/
+R/local_generate_plots_tables.R
