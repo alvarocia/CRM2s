@@ -35,6 +35,8 @@ two_stage_crm_logistic(
 
 \item{q_1}{Target probability of observing at least one toxicity during stage 1. Default is 0.9.}
 
+\item{lim_sup_prob}{Maximum acceptable probability of toxicity. Default is 0.7.}
+
 \item{show_plot}{Logical. If TRUE, plots the dose levels for patients in the trial. Default is FALSE.}
 
 \item{seed}{Random seed for reproducibility. Default is 1234.}
