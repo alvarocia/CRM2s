@@ -90,7 +90,7 @@ CRMC/
 
 ## 📄 License
 
-This package is released under the GLP License.
+This package is released under the GPL License.
 
 ------------------------------------------------------------------------
 
