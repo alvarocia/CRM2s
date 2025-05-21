@@ -53,18 +53,18 @@ export_simulation_table_manual(res$logistic, "RESULTS/table_logistic.tex")
 
 ## 📊 Function Overview
 
-| Function | Purpose |
-|--------------------------|----------------------------------------------|
-| `logistic_3_3()` | Run one 3+3 trial under logistic dose-toxicity model |
-| `power_3_3()` | Run one 3+3 trial under power model |
-| `two_stage_crm_logistic()` | Run one two-stage CRM simulation using logistic model |
-| `two_stage_crm_power()` | Run one two-stage CRM simulation using power model |
-| `run_simulation_logistic()` | Run multiple simulations (logistic) and compare designs |
-| `run_simulation_power()` | Run multiple simulations (power) and compare designs |
-| `simulate_across_n_initial()` | Vary `n_initial` and summarize results across configurations |
-| `export_simulation_table_manual()` | Export formatted LaTeX summary table |
+| Function                     | Purpose                                                           |
+|-----------------------------|-------------------------------------------------------------------|
+| `logistic_3_3()`            | Run one 3+3 trial under logistic dose-toxicity model              |
+| `power_3_3()`               | Run one 3+3 trial under power model                               |
+| `two_stage_crm_logistic()`  | Run one two-stage CRM simulation using logistic model             |
+| `two_stage_crm_power()`     | Run one two-stage CRM simulation using power model                |
+| `run_simulation_logistic()` | Run multiple simulations (logistic) and compare designs           |
+| `run_simulation_power()`    | Run multiple simulations (power) and compare designs              |
+| `simulate_across_n_initial()` | Vary `n_initial` and summarize results across configurations    |
+| `export_simulation_table_manual()` | Export formatted LaTeX summary table                      |
 
-------------------------------------------------------------------------
+---
 
 ## 📁 Package Structure
 
@@ -77,20 +77,22 @@ CRM2s/
 │   ├── run_simulation_*.R
 │   ├── simulate_across_n_initial.R
 │   └── plot_functions.R
+├── tools/
 ├── PLOTS/
 ├── RESULTS/
 ├── tests/
-├── CRMC.pdf
+├── CRM2s.pdf
 ├── DESCRIPTION
 ├── NAMESPACE
+├── LICENSE.md
 └── README.md
 ```
 
-------------------------------------------------------------------------
+---
 
 ## 📄 License
 
-This package is released under the GPL License.
+This package is released under the terms of the [MIT License](LICENSE.md).
 
 ------------------------------------------------------------------------
 
