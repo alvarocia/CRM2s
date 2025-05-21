@@ -10,7 +10,7 @@ export_simulation_table_manual(
 )
 }
 \arguments{
-\item{df}{A data frame with simulation summaries for one model (e.g., \code{result_list$potential}) as returned by \code{simulate_across_n_initial()}.}
+\item{df}{A data frame with simulation summaries for one model (e.g., \code{result_list$power}) as returned by \code{simulate_across_n_initial()}.}
 
 \item{file_path}{Path to the output .tex file.}
 }
@@ -19,6 +19,6 @@ Writes a LaTeX table with MTD and toxicity summaries using cat(), without extern
 }
 \examples{
 result_list <- simulate_across_n_initial()
-export_simulation_table_manual(result_list$potential, "table_potential.tex")
+export_simulation_table_manual(result_list$power, "table_power.tex")
 export_simulation_table_manual(result_list$logistic, "table_logistic.tex")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulate_across_n_initial.R
 \name{simulate_across_n_initial}
 \alias{simulate_across_n_initial}
-\title{Simulation Study for Different n_initial Values (Potential and Logistic Models)}
+\title{Simulation Study for Different n_initial Values (Power and Logistic Models)}
 \usage{
 simulate_across_n_initial(num_rep = 500, seed = 1234)
 }
@@ -12,12 +12,12 @@ simulate_across_n_initial(num_rep = 500, seed = 1234)
 \item{seed}{Random seed. Default is 1234.}
 }
 \value{
-A list of two data frames: \code{$potential} and \code{$logistic}, each containing results for CRM2s at n_initial = 1:4 and 3+3.
+A list of two data frames: \code{$power} and \code{$logistic}, each containing results for CRM2s at n_initial = 1:4 and 3+3.
 }
 \description{
-Runs simulations using run_simulation_potential() and run_simulation_logistic() with varying n_initial values and summarizes key results.
+Runs simulations using run_simulation_power() and run_simulation_logistic() with varying n_initial values and summarizes key results.
 }
 \examples{
 result_list <- simulate_across_n_initial()
-head(result_list$potential)
+head(result_list$power)
 }

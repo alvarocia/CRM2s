@@ -1,5 +1,5 @@
-#' @title Run Simulation Comparison Between 3+3 and CRM2s for the potential model
-#' @description Compares the MTD estimation and toxicity count between the potential 3+3 method and the two-stage CRM using multiple replications.
+#' @title Run Simulation Comparison Between 3+3 and CRM2s for the power model
+#' @description Compares the MTD estimation and toxicity count between the power 3+3 method and the two-stage CRM using multiple replications.
 #'
 #' @param num_rep Number of replications to run. Default is 1000.
 #' @param seed Base random seed for reproducibility. Default is 1234.
@@ -39,10 +39,10 @@
 #' }
 #' @import lattice
 #' @examples
-#' df <- run_simulation_potential(num_rep = 100)
+#' df <- run_simulation_power(num_rep = 100)
 #' head(df)
 #' @export
-run_simulation_potential <- function(num_rep = 1000,
+run_simulation_power <- function(num_rep = 1000,
                                      seed = 1234,
                                      save_plot = FALSE,
                                      p0 = 0.4,
@@ -66,7 +66,7 @@ run_simulation_potential <- function(num_rep = 1000,
   n_patients_3_3 <- numeric(num_rep)
 
   for (i in 1:num_rep) {
-    results_3_3 <- potential_3_3(seed = seed + i,
+    results_3_3 <- power_3_3(seed = seed + i,
                                  theta = theta,
                                  theta_0 = theta_0,
                                  n_initial = 3,
@@ -77,7 +77,7 @@ run_simulation_potential <- function(num_rep = 1000,
     mtd_3_3_estimated[i] <- results_3_3$mtd_estimated
     n_patients_3_3[i] <- results_3_3$n_patients
 
-    results_crm <- two_stage_crm_potential(seed = seed + i,
+    results_crm <- two_stage_crm_power(seed = seed + i,
                                            p0 = p0,
                                            n_initial = n_initial,
                                            N = N,
@@ -109,7 +109,7 @@ run_simulation_potential <- function(num_rep = 1000,
     if (!dir.exists("PLOTS")) {
       dir.create("PLOTS")
     }
-    pdf("PLOTS/compare_MTD_potential.pdf", width = 5.6, height = 4.2)
+    pdf("PLOTS/compare_MTD_power.pdf", width = 5.6, height = 4.2)
   }
 
   # --- Plot 1: Estimated MTD ---
@@ -143,7 +143,7 @@ run_simulation_potential <- function(num_rep = 1000,
   my_breaks <- seq(0.5, 20.5, by = 1)
 
   if (save_plot) {
-    pdf("PLOTS/compare_tox_potential.pdf", width = 5.6, height = 4.2)
+    pdf("PLOTS/compare_tox_power.pdf", width = 5.6, height = 4.2)
   }
 
   print(lattice::bwplot(value ~ group, data = df_2, coef = 0, pch = "|",

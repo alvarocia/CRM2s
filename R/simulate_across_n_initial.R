@@ -1,20 +1,20 @@
-#' @title Simulation Study for Different n_initial Values (Potential and Logistic Models)
-#' @description Runs simulations using run_simulation_potential() and run_simulation_logistic() with varying n_initial values and summarizes key results.
+#' @title Simulation Study for Different n_initial Values (Power and Logistic Models)
+#' @description Runs simulations using run_simulation_power() and run_simulation_logistic() with varying n_initial values and summarizes key results.
 #'
 #' @param num_rep Number of repetitions for each simulation. Default is 500.
 #' @param seed Random seed. Default is 1234.
 #'
-#' @return A list of two data frames: \code{$potential} and \code{$logistic}, each containing results for CRM2s at n_initial = 1:4 and 3+3.
+#' @return A list of two data frames: \code{$power} and \code{$logistic}, each containing results for CRM2s at n_initial = 1:4 and 3+3.
 #' @export
 #' @examples
 #' result_list <- simulate_across_n_initial()
-#' head(result_list$potential)
+#' head(result_list$power)
 simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
   # ----------------------------
-  # POTENTIAL MODEL
+  # POWER MODEL
   # ----------------------------
-  crm_potential_results <- lapply(1:4, function(n_init) {
-    df <- run_simulation_potential(
+  crm_power_results <- lapply(1:4, function(n_init) {
+    df <- run_simulation_power(
       num_rep = num_rep,
       seed = seed,
       n_initial = n_init,
@@ -24,9 +24,9 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
     crm_row$n_initial <- n_init
     return(crm_row)
   })
-  crm_potential_df <- do.call(rbind, crm_potential_results)
+  crm_power_df <- do.call(rbind, crm_power_results)
 
-  df_3_3_pot <- run_simulation_potential(
+  df_3_3_pot <- run_simulation_power(
     num_rep = num_rep,
     seed = seed,
     n_initial = 3,
@@ -35,8 +35,8 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
   row_3_3_pot <- df_3_3_pot[df_3_3_pot$method == "3+3", ]
   row_3_3_pot$n_initial <- NA
 
-  df_potential <- rbind(crm_potential_df, row_3_3_pot)
-  df_potential <- df_potential[, c("method", "n_initial", "mean_pat", "median_pat",
+  df_power <- rbind(crm_power_df, row_3_3_pot)
+  df_power <- df_power[, c("method", "n_initial", "mean_pat", "median_pat",
                                    "mean_mtd", "var_mtd", "median_mtd", "iqr_mtd",
                                    "mean_tox", "var_tox", "median_tox", "iqr_tox")]
 
@@ -72,7 +72,7 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
 
   # Return both results
   return(list(
-    potential = df_potential,
+    power = df_power,
     logistic = df_logistic
   ))
 }

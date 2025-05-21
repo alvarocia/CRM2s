@@ -1,12 +1,12 @@
 #' @title Export Simulation Summary to LaTeX
 #' @description Writes a LaTeX table with MTD and toxicity summaries using cat(), without external dependencies.
 #'
-#' @param df A data frame with simulation summaries for one model (e.g., \code{result_list$potential}) as returned by \code{simulate_across_n_initial()}.
+#' @param df A data frame with simulation summaries for one model (e.g., \code{result_list$power}) as returned by \code{simulate_across_n_initial()}.
 #' @param file_path Path to the output .tex file.
 #' @export
 #' @examples
 #' result_list <- simulate_across_n_initial()
-#' export_simulation_table_manual(result_list$potential, "table_potential.tex")
+#' export_simulation_table_manual(result_list$power, "table_power.tex")
 #' export_simulation_table_manual(result_list$logistic, "table_logistic.tex")
 export_simulation_table_manual <- function(df, file_path = "RESULTS/simulation_results.tex") {
   con <- file(file_path, open = "wt")

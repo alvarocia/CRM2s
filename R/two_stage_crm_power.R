@@ -1,4 +1,4 @@
-#' @title C-optimal based two-stage Continual Reassessment Method (CRM2s) Simulation for potential model
+#' @title C-optimal based two-stage Continual Reassessment Method (CRM2s) Simulation for power model
 #' @description Performs one simulation run of a two-stage CRM design for estimating the Maximum Tolerated Dose (MTD) in phase I trials.
 #'
 #' @param p0 Target toxicity probability. Default is 0.4.
@@ -27,11 +27,11 @@
 #' The value of \code{mle_theta} is set to \code{NA} in this case.
 #'
 #' @examples
-#' result <- two_stage_crm_potential(show_plot = TRUE)
+#' result <- two_stage_crm_power(show_plot = TRUE)
 #' print(result$mtd_estimated)
 #'
 #' @export
-two_stage_crm_potential <- function(
+two_stage_crm_power <- function(
   p0 = 0.4,
   theta = 3,
   theta_0 = 2.7,

@@ -1,4 +1,4 @@
-#' @title 3+3 Design Simulation for Potential model
+#' @title 3+3 Design Simulation for power model
 #' @description Simulates one trial using a 3+3 dose-escalation method for estimating the Maximum Tolerated Dose (MTD).
 #'
 #' @param theta True value for the dose-toxicity curve. Default is 3.
@@ -19,11 +19,11 @@
 #' }
 #'
 #' @examples
-#' res <- potential_3_3()
+#' res <- power_3_3()
 #' print(res$mtd_estimated)
 #'
 #' @export
-potential_3_3 <- function(
+power_3_3 <- function(
   theta = 3,
   theta_0 = 2.7,
   n_initial = 3,
