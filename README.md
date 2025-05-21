@@ -96,4 +96,4 @@ This package is released under the GPL License.
 
 ## 👤 Author
 
-Developed by Alvaro Cia-Mina For contributions or issues, visit: <https://github.com/alvarocia/CRMC>
+Developed by Alvaro Cia-Mina For contributions or issues, visit: <https://github.com/alvarocia/CRM2s>
