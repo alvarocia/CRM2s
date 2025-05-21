@@ -6,6 +6,6 @@
 #'
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics hist legend
-#' @importFrom stats IQR binomial coef glm median optim quantile rbinom uniroot var
+#' @importFrom stats IQR binomial coef glm median optim quantile rbinom uniroot var sd
 #' @importFrom utils head tail
 NULL
