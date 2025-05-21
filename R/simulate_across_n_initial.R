@@ -37,8 +37,8 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
 
   df_power <- rbind(crm_power_df, row_3_3_pot)
   df_power <- df_power[, c("method", "n_initial", "mean_pat", "median_pat",
-                                   "mean_mtd", "var_mtd", "median_mtd", "iqr_mtd",
-                                   "mean_tox", "var_tox", "median_tox", "iqr_tox")]
+                                   "mean_mtd", "sd_mtd", "median_mtd", "siqr_mtd",
+                                   "mean_tox", "sd_tox", "median_tox", "siqr_tox")]
 
   # ----------------------------
   # LOGISTIC MODEL
@@ -67,8 +67,8 @@ simulate_across_n_initial <- function(num_rep = 500, seed = 1234) {
 
   df_logistic <- rbind(crm_logistic_df, row_3_3_log)
   df_logistic <- df_logistic[, c("method", "n_initial", "mean_pat", "median_pat",
-                                 "mean_mtd", "var_mtd", "median_mtd", "iqr_mtd",
-                                 "mean_tox", "var_tox", "median_tox", "iqr_tox")]
+                                 "mean_mtd", "sd_mtd", "median_mtd", "siqr_mtd",
+                                 "mean_tox", "sd_tox", "median_tox", "siqr_tox")]
 
   # Return both results
   return(list(

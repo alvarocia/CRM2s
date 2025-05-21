@@ -22,20 +22,21 @@
 #'   \item{mean_pat}{Mean of patients}
 #'   \item{median_pat}{Median of patients}
 #'   \item{mean_mtd}{Mean of the estimated MTDs}
-#'   \item{var_mtd}{Variance of the estimated MTDs}
+#'   \item{sd_mtd}{Standard deviation of the estimated MTDs}
 #'   \item{median_mtd}{Median of the estimated MTDs}
 #'   \item{min_mtd}{Minimum of the estimated MTDs}
 #'   \item{q1_mtd}{First quartile (Q1) of the estimated MTDs}
 #'   \item{q3_mtd}{Third quartile (Q3) of the estimated MTDs}
 #'   \item{max_mtd}{Maximum of the estimated MTDs}
-#'   \item{iqr_mtd}{Interquartile range of the estimated MTDs}
+#'   \item{siqr_mtd}{Semi-interquartile range of the estimated MTDs}
 #'   \item{mean_tox}{Mean number of toxicities}
+#'   \item{sd_tox}{Standard deviation of the number of toxicities}
 #'   \item{median_tox}{Median number of toxicities}
 #'   \item{min_tox}{Minimum number of toxicities}
 #'   \item{q1_tox}{First quartile (Q1) of the number of toxicities}
 #'   \item{q3_tox}{Third quartile (Q3) of the number of toxicities}
 #'   \item{max_tox}{Maximum number of toxicities}
-#'   \item{iqr_tox}{Interquartile range of the number of toxicities}
+#'   \item{siqr_tox}{Semi-interquartile range of the number of toxicities}
 #' }
 #' @import lattice
 #' @examples
@@ -185,7 +186,7 @@ run_simulation_logistic <- function(num_rep = 1000,
     mean_pat   = c(mean(n_patients_3_3), N),
     median_pat = c(median(n_patients_3_3), N),
     mean_mtd   = c(mean(mtd_3_3_estimated), mean(mtd_proposal_estimated)),
-    var_mtd    = c(var(mtd_3_3_estimated), var(mtd_proposal_estimated)),
+    sd_mtd    = c(sd(mtd_3_3_estimated), sd(mtd_proposal_estimated)),
     median_mtd = c(median(mtd_3_3_estimated), median(mtd_proposal_estimated)),
     min_mtd    = c(min(mtd_3_3_estimated), min(mtd_proposal_estimated)),
     q1_mtd     = c(as.numeric(quantile(mtd_3_3_estimated, 0.25)),
@@ -193,10 +194,10 @@ run_simulation_logistic <- function(num_rep = 1000,
     q3_mtd     = c(as.numeric(quantile(mtd_3_3_estimated, 0.75)),
                    as.numeric(quantile(mtd_proposal_estimated, 0.75))),
     max_mtd    = c(max(mtd_3_3_estimated), max(mtd_proposal_estimated)),
-    iqr_mtd    = c(IQR(mtd_3_3_estimated), IQR(mtd_proposal_estimated)),
+    siqr_mtd    = c(IQR(mtd_3_3_estimated)/2, IQR(mtd_proposal_estimated)/2),
 
     mean_tox   = c(mean(n_tox_3_3), mean(n_tox_proposal)),
-    var_tox   = c(var(n_tox_3_3), var(n_tox_proposal)),
+    sd_tox   = c(sd(n_tox_3_3), sd(n_tox_proposal)),
     median_tox = c(median(n_tox_3_3), median(n_tox_proposal)),
     min_tox    = c(min(n_tox_3_3), min(n_tox_proposal)),
     q1_tox     = c(as.numeric(quantile(n_tox_3_3, 0.25)),
@@ -204,7 +205,7 @@ run_simulation_logistic <- function(num_rep = 1000,
     q3_tox     = c(as.numeric(quantile(n_tox_3_3, 0.75)),
                    as.numeric(quantile(n_tox_proposal, 0.75))),
     max_tox    = c(max(n_tox_3_3), max(n_tox_proposal)),
-    iqr_tox    = c(IQR(n_tox_3_3), IQR(n_tox_proposal))
+    siqr_tox    = c(IQR(n_tox_3_3)/2, IQR(n_tox_proposal)/2)
   )
 
 

@@ -57,20 +57,21 @@ A \code{data.frame} with one row per method ("3+3" and "CRM2s") and the followin
   \item{mean_pat}{Mean of patients}
   \item{median_pat}{Median of patients}
   \item{mean_mtd}{Mean of the estimated MTDs}
-  \item{var_mtd}{Variance of the estimated MTDs}
+  \item{sd_mtd}{Standard deviation of the estimated MTDs}
   \item{median_mtd}{Median of the estimated MTDs}
   \item{min_mtd}{Minimum of the estimated MTDs}
   \item{q1_mtd}{First quartile (Q1) of the estimated MTDs}
   \item{q3_mtd}{Third quartile (Q3) of the estimated MTDs}
   \item{max_mtd}{Maximum of the estimated MTDs}
-  \item{iqr_mtd}{Interquartile range of the estimated MTDs}
+  \item{siqr_mtd}{Semi-interquartile range of the estimated MTDs}
   \item{mean_tox}{Mean number of toxicities}
+  \item{sd_tox}{Standard deviation of the number of toxicities}
   \item{median_tox}{Median number of toxicities}
   \item{min_tox}{Minimum number of toxicities}
   \item{q1_tox}{First quartile (Q1) of the number of toxicities}
   \item{q3_tox}{Third quartile (Q3) of the number of toxicities}
   \item{max_tox}{Maximum number of toxicities}
-  \item{iqr_tox}{Interquartile range of the number of toxicities}
+  \item{siqr_tox}{Semi-interquartile range of the number of toxicities}
 }
 }
 \description{

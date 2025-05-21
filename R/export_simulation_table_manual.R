@@ -13,7 +13,7 @@ export_simulation_table_manual <- function(df, file_path = "RESULTS/simulation_r
 
   cat("\\begin{tabular}{llcccc}\n", file = con)
   cat("\\toprule\n", file = con)
-  cat("Method & $n_{\\text{initial}}$ & Mean MTD (Var)  & Median MTD (IQR)  & Mean Tox (Var)  & Median Tox (IQR)  \\\\\n", file = con)
+  cat("Method & $n_{\\text{initial}}$ & Mean MTD (SD)  & Median MTD (SIQR)  & Mean Tox (SD)  & Median Tox (SIQR)  \\\\\n", file = con)
   cat("\\midrule\n", file = con)
 
   df_crm <- df[df$method == "CRM2s", ]
@@ -28,20 +28,20 @@ export_simulation_table_manual <- function(df, file_path = "RESULTS/simulation_r
       "%s %d & %s & %s & %s & %s \\\\\n",
       prefix,
       row$n_initial,
-      sprintf("%.3f (%.3f)", row$mean_mtd, row$var_mtd),
-      sprintf("%.3f (%.3f)", row$median_mtd, row$iqr_mtd),
-      sprintf("%.3f (%.3f)", row$mean_tox, row$var_tox),
-      sprintf("%.1f (%.2f)", row$median_tox, row$iqr_tox)
+      sprintf("%.3f (%.3f)", row$mean_mtd, row$sd_mtd),
+      sprintf("%.3f (%.3f)", row$median_mtd, row$siqr_mtd),
+      sprintf("%.3f (%.3f)", row$mean_tox, row$sd_tox),
+      sprintf("%.1f (%.2f)", row$median_tox, row$siqr_tox)
     ), file = con)
   }
 
   cat("\\midrule\n", file = con)
   cat(sprintf(
     "3+3 & -- & %s & %s & %s & %s \\\\\n",
-    sprintf("%.3f (%.3f)", df_3_3$mean_mtd, df_3_3$var_mtd),
-    sprintf("%.3f (%.3f)", df_3_3$median_mtd, df_3_3$iqr_mtd),
-    sprintf("%.3f (%.3f)", df_3_3$mean_tox, df_3_3$var_tox),
-    sprintf("%.1f (%.2f)", df_3_3$median_tox, df_3_3$iqr_tox)
+    sprintf("%.3f (%.3f)", df_3_3$mean_mtd, df_3_3$sd_mtd),
+    sprintf("%.3f (%.3f)", df_3_3$median_mtd, df_3_3$siqr_mtd),
+    sprintf("%.3f (%.3f)", df_3_3$mean_tox, df_3_3$sd_tox),
+    sprintf("%.1f (%.2f)", df_3_3$median_tox, df_3_3$siqr_tox)
   ), file = con)
 
   cat("\\bottomrule\n", file = con)
