@@ -2,7 +2,7 @@ Package: CRM2s
 Type: Package
 Title: C-Optimality Based Two-Stage Continual Reassessment Method (CRM)
 Version: 0.1.0
-Description: Implements CRM2s, a Two-Stage Continual Reassesment Method based in c-optimality. Simulates and compares this dose-escalation method in phase I clinical trials with the traditional 3+3 design for two types of dose-toxicity models: power with one parameter and logistic with two parameters.
+Description: Implements CRM2s, a Two‑Stage Continual Reassesment Method based in c‑optimality. Simulates and compares this dose‑escalation method in phase I clinical trials with the traditional 3+3 design for two types of dose‑toxicity models: power with one parameter and logistic with two parameters.
 URL: https://github.com/alvarocia/CRM2s
 Author: Alvaro Cia-Mina <aciamina@unav.es>
 Maintainer: Alvaro Cia-Mina <aciamina@unav.es>
